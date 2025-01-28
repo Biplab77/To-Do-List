@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Event{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <h1 class="text-center my-3">Add An Event</h1>
+                {% if error == True %}
+                    <p class="text-danger">Duplicate task found</p>
+                {% endif %}
+                <form action="{% url 'todolist:add_event' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="event_name">Event Name: </label>
+                        <input class="form-control" id="event_name" type="text" name="event_name" value="{{ event_name }}" maxlength="50" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description">Description: </label>
+                        <textarea class="form-control" name="description" value="{{ description }}" required></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <input class="btn btn-success" type="submit" value="Add Event">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

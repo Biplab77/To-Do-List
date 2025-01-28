@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title%}Home{% endblock %}
+
+{% block content %}
+    {% if todoitem_list or todoevent_list and user.is_anonymous == False %}
+        <h1 class="text-center my-3">Welcome {{ user.first_name }} {{ user.last_name }}</h1>
+        <div class="container">
+            <div class="row">
+                <h3 class="text-center mb-3">My Tasks</h3>
+                <ul class="list-group col-lg-2 offset-lg-5 text-center"><!-- column-large-2 -->
+                {% for todoitem in todoitem_list %}
+                    <a href="{% url 'todolist:viewtodoitem' todoitem.id %}" class="text-decoration-none">{{ todoitem.task_name }}
+                        <li class="list-group-item">{{ todoitem.task_name }}</li>
+                    </a>
+                {% endfor %}
+                 </ul>
+            </div>
+            <div class="row">
+                <h3 class="text-center mb-3">My Events</h3>
+                <ul class="list-group col-lg-2 offset-lg-5 text-center">
+                {% for todoevent in todoevent_list %}
+                    <a href="{% url 'todolist:viewtodoevent' todoevent.id %}" class="text-decoration-none">{{ todoevent.event_name }}
+                        <li class="list-group-item">{{ todoevent.event_name }}</li>
+                    </a>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% elif todoevent_list and user.is_anonymous == False %}
+        <div class="container">
+          
+        </div>
+    {% elif user.is_anonymous == True %}
+        <h1 class="text-center my-3">You are not authorized to access this page.</h1>
+        <p class="text-center">Kindly login<a href="{% url 'todolist:login' %}">here</a></p> 
+    {% else %}
+       <p>No task or event have been created</p>
+    {% endif %}
+{% endblock %}
+

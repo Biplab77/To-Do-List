@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Task{% endblock %}
+
+{% block content %}
+    {% if user.is_anonymous == False %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <h1 class="text-center my-3">Update Task</h1>
+                {% if error == True %}
+                    <p class="text-danger">Task not found</p>
+                {% endif %}
+                <form action="{% url 'todolist:update_task' todoitem_id %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="task_name">Task Name: </label>
+                        <input class="form-control" id="task_name" type="text" name="task_name" value="{{ task_name }}" maxlength="50" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description">Description: </label>
+                        <textarea class="form-control" name="description" required>{{ description }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="status">Status: </label>
+                        <input class="form-control" id="status" type="text" name="status" value="{{ status }}" maxlength="50" required>
+                    </div>
+
+                    <div class="text-center">
+                        <input class="btn btn-success" type="submit" value="Update Task">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <h1 class="text-center my-3">You are not authorized to access this page.</h1>
+        <p class="text-center">Kindly login <a href="{% url 'todolist:login' %}">here</a></p>
+    {% endif %}
+{% endblock %}

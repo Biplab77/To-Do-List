@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1 class="text-center my-3">Login</h1>
+            {% if error == True %}
+                <p class="text-danger">Invalid user credentials, please check your username and password</p>
+            {% endif %}
+            <form action="{% url 'todolist:login' %}" method="post">
+                <!-- This template tag provides protection against Cross Site Request Forgeries (CSRF) -->
+                <!-- CSRF occurs when a malicious website contains a link, a form button or some JavaScript that is intended to perform some action our website, using the credentials of a logged-in user -->
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="username">Username: </label>
+                    <input class="form-control" id="username" type="text" name="username" value="{{ username }}" maxlength="20" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password: </label>
+                    <input class="form-control" id="password" type="password" name="password" value="{{ password }}" maxlength="20" required>
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Login">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}To Do Item{% endblock %}
+
+{% block content %}
+<div class="text-center my-3">
+	<h1>{{ task_name }}</h1>
+	<h3>Description</h3>
+	<p>{{ description }}</p>
+	<h3>Status</h3>
+	<p>{{ status }}</p>
+	
+	<button class="btn btn-primary mx-1 text-decoration-none">
+		<a href="{% url 'todolist:update_task' id %}" class="text-light text-decoration-none">Edit Task</a>
+	</button>
+
+	<button class="btn btn-danger mx-1 text-decoration-none">
+		<a href="{% url 'todolist:delete_task' id %}" class="text-light text-decoration-none">Delete Task</a>
+	</button>
+
+	<button class="btn btn-warning mx-1 text-decoration-none">
+		<a href="{% url 'todolist:index' %}" class="text-light text-decoration-none">Back To Tasks</a>
+	</button>
+	
+</div>
+
+{% endblock %}
